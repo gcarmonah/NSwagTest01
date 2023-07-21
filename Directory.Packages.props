@@ -9,6 +9,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageVersion Include="NLog.Web.AspNetCore" Version="5.0.0" />
     <PackageVersion Include="NSwag.AspNetCore" Version="13.19.0" />
+    <PackageVersion Include="NSwag.MSBuild" Version="13.19.0" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="NUnit.Analyzers" Version="3.5.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.4.2" />

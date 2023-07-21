@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneInc.AmazingApi.Api", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneInc.AmazingApi.Api.UnitTests", "test\OneInc.AmazingApi.Api.UnitTests\OneInc.AmazingApi.Api.UnitTests.csproj", "{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneInc.AmazingApi.RestApi.Client.Net", "src\SDK\OneInc.AmazingApi.RestApi.Client.Net\OneInc.AmazingApi.RestApi.Client.Net.csproj", "{BC0701B3-71AA-40FB-8BD1-0CC951DE9EAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0701B3-71AA-40FB-8BD1-0CC951DE9EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0701B3-71AA-40FB-8BD1-0CC951DE9EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0701B3-71AA-40FB-8BD1-0CC951DE9EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0701B3-71AA-40FB-8BD1-0CC951DE9EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
-{
+﻿{
   "runtime": "Net60",
-  "defaultVariables": null,
+  "defaultVariables": "CSharpOutputPath=..\\SDK\\OneInc.AmazingApi.RestApi.Client.Net",
   "documentGenerator": {
     "webApiToOpenApi": {
       "controllerNames": [],
@@ -50,7 +50,7 @@
       "outputType": "Swagger2",
       "newLineBehavior": "Auto",
       "assemblyPaths": [
-        "../bin/Debug/net6.0/OneInc.AmazingApi.Api.dll"
+        "bin/Debug/net6.0/OneInc.AmazingApi.Api.dll"
       ],
       "assemblyConfig": null,
       "referencePaths": [],
@@ -62,10 +62,10 @@
       "clientBaseClass": null,
       "configurationClass": null,
       "generateClientClasses": true,
-      "generateClientInterfaces": false,
+      "generateClientInterfaces": true,
       "clientBaseInterface": null,
       "injectHttpClient": true,
-      "disposeHttpClient": true,
+      "disposeHttpClient": false,
       "protectedMethods": [],
       "generateExceptionClasses": true,
       "exceptionClass": "ApiException",
@@ -141,7 +141,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": null,
+      "output": "$(CSharpOutputPath)/OneInc.AmazingApi.RestApi.Client.Net.cs",
       "newLineBehavior": "Auto"
     }
   }
