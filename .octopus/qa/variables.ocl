@@ -1,0 +1,7 @@
+variable "k8s.amazingapi.api.replicas" {
+    value "1" {}
+}
+
+variable "nlog.variables.consoleLogMinLevel" {
+    value "info" {}
+}

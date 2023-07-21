@@ -1,0 +1,62 @@
+dockerRegistry:
+includesPath: includes
+
+appSettings:
+  Authentication:
+    IdentityProviderUrl: https://localhost/OneInc.IdentityProvider
+
+nlog:
+  variables:
+    consoleLogMinLevel: Info
+    releaseVersion: 1.0.0
+api:
+  replicaCount: 1
+  image: amazingapi/api
+  version: 1.0.0
+  pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: amazingapi.local
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: amazingapi-api
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazingapi-api
+  labels:
+    {{- include "amazingapi.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      app: amazingapi-api
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.podAnnotations}}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        {{- end}}
+        checksum/config: "{{ include (print $.Template.BasePath "/api-configmap.yaml") . | sha256sum }}"
+      labels:
+        app: amazingapi-api
+        {{- include "amazingapi.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end}}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: api
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.dockerRegistry }}{{ .Values.api.image }}:{{ .Values.api.version }}"
+          imagePullPolicy: {{ .Values.api.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/configmaps
+              name: configmaps
+              readOnly: true
+          resources:
+            {{- toYaml .Values.api.resources | nindent 12 }}
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            httpGet:
+              host: ''
+              path: /health/liveness
+              port: 80
+              scheme: HTTP
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            httpGet:
+              host: ''
+              path: /health/readiness
+              port: 80
+              scheme: HTTP
+          startupProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            httpGet:
+              host: ''
+              path: /health/startup
+              port: 80
+              scheme: HTTP
+      volumes:
+        - name: configmaps
+          configMap:
+            name: {{ .Chart.Name }}-api-configmap
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

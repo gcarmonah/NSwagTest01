@@ -1,0 +1,21 @@
+dockerRegistry: #{K8s.DockerFeed}/#{K8s.DockerImagePrefix}
+
+appSettings:
+  Authentication:
+    IdentityProviderUrl: #{IdentityProviderBaseUrl}
+
+nlog:
+  variables:
+    consoleLogMinLevel: #{nlog.variables.consoleLogMinLevel}
+    releaseVersion: #{Octopus.Release.Number}
+
+api:
+  replicaCount: #{K8s.amazingapi.Api.Replicas}
+  version: #{Octopus.Release.Number}
+ingress:
+  hosts:
+    - host: #{K8s.Api.Host}
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: amazingapi-api

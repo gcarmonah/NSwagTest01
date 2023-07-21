@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneInc.AmazingApi.Api", "src\OneInc.AmazingApi.Api\OneInc.AmazingApi.Api.csproj", "{BBD98DA9-8CCB-4592-A195-01100672ECAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneInc.AmazingApi.Api.UnitTests", "test\OneInc.AmazingApi.Api.UnitTests\OneInc.AmazingApi.Api.UnitTests.csproj", "{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBD98DA9-8CCB-4592-A195-01100672ECAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBD98DA9-8CCB-4592-A195-01100672ECAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBD98DA9-8CCB-4592-A195-01100672ECAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBD98DA9-8CCB-4592-A195-01100672ECAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF9C71B-811B-4BE1-9695-CFB6F4209F15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

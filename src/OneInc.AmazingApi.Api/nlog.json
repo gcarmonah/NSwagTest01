@@ -1,0 +1,84 @@
+{
+  "NLog": {
+    "internalLogLevel": "Info",
+    "extensions": [
+      { "assembly": "NLog.Extensions.Logging" },
+      { "assembly": "NLog.DiagnosticSource" }
+    ],
+    "variables": {
+      "consoleLogMinLevel": "Info",
+      "releaseVersion" : "1.0.0"
+    },
+    "default-wrapper": {
+      "type": "AsyncWrapper",
+      "overflowAction": "Block"
+    },
+    "targets": {
+      "consoleLog": {
+        "type": "Console",
+        "layout": {
+          "type": "JsonLayout",
+          "includeAllProperties": "true",
+          "maxRecursionLimit": "5",
+          "Attributes": [
+            {
+              "name": "time",
+              "layout": "${longdate}"
+            },
+            {
+              "name": "machinename",
+              "layout": "${machinename}"
+            },
+            {
+              "name": "level",
+              "layout": "${level}"
+            },
+            {
+              "name": "threadid",
+              "layout": "${threadid}"
+            },
+            {
+              "name": "traceId",
+              "layout": "${activity:TraceId}"
+            },
+            {
+              "name": "releaseVersion",
+              "layout": "${releaseVersion}"
+            },
+            {
+              "name": "callsite",
+              "layout": "${callsite}"
+            },
+            {
+              "name": "message",
+              "layout": "${message}"
+            },
+            {
+              "name": "exception",
+              "layout":
+              "${onexception:inner=${exception:format=type,message,stacktrace:maxInnerExceptionLevel=5:innerExceptionSeparator= | }}"
+            }
+          ]
+        }
+      }
+    },
+    "rules": [
+      {
+        "logger": "Microsoft.*",
+        "minLevel": "Trace",
+        "maxLevel": "Info",
+        "final": "true"
+      },
+      {
+        "logger": "*",
+        "minLevel": "${consoleLogMinLevel}",
+        "writeTo": "consoleLog",
+        "filterDefaultAction": "Log",
+        "filters": [
+          { "type": "when", "condition": "contains('${callsite}', 'Microsoft.Extensions.Http.Logging')", "action": "Ignore" }
+        ],
+        "final": "true"
+      }
+    ]
+  }
+}

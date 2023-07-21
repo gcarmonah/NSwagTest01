@@ -1,0 +1,11 @@
+﻿version: '3.8'
+
+services:
+  amazingapi-api:
+    image: ${REPOSITORY}/amazingapi/api:${BUILD_NUMBER}
+    build:
+      context: ../
+      args:
+        feed: ${FEED}
+        configuration: ${CONFIGURATION}
+      dockerfile: src/OneInc.AmazingApi.Api/Dockerfile

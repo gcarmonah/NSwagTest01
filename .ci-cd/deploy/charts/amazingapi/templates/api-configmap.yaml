@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-api-configmap
+data:
+{{- $searchPath := printf "%s/configmap/api/*" .Values.includesPath -}}
+{{ $currentScope := . }}
+{{ range $path, $_ := .Files.Glob $searchPath }}
+{{- with $currentScope }}
+{{ print (base $path) | indent 2 }}: |
+{{ print (tpl (.Files.Get $path) .) | indent 4 }}
+{{- end }}
+{{ end }}

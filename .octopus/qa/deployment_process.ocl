@@ -1,0 +1,66 @@
+step "hello-world-using-powershell" {
+    name = "Print Deployment URL"
+
+    action "print-deployment-url" {
+        action_type = "Octopus.Script"
+        is_required = true
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $esc = "$([char]27)"
+                
+                $octopusBaseUrl = $OctopusParameters["Octopus.Web.BaseUrl"]
+                $deploymentLink = $OctopusParameters["Octopus.Web.DeploymentLink"]
+                $uid = $ConfigurationUid
+                
+                Write-Highlight "$esc[1;35mDeployment Task URL:$esc[0m $octopusBaseUrl$deploymentLink"
+                Write-Highlight "ConfigurationUid: $uid"
+            EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+    }
+}
+
+step "upgrade-helm-charts" {
+    name = "Upgrade Helm charts"
+    properties = {
+        Octopus.Action.TargetRoles = "k8s"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.EnabledFeatures = "Octopus.Features.SubstituteInFiles"
+            Octopus.Action.Package.DownloadOnTentacle = "False"
+            Octopus.Action.Package.FeedId = "octopus-server-built-in"
+            Octopus.Action.Package.PackageId = "OneInc.AmazingApi.Deployment"
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptFileName = "DeployHelmChart.ps1"
+            Octopus.Action.Script.ScriptParameters = "-namespace #{K8s.Namespace} -release amazingapi-#{K8s.Namespace} -valuesPath env/octopus/values.yaml -buildNumber #{Octopus.Release.Number}"
+            Octopus.Action.Script.ScriptSource = "Package"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "**\\octopus\\*.yaml"
+        }
+        worker_pool = "default-worker-pool"
+
+        packages {
+            acquisition_location = "Server"
+            feed = "octopus-server-built-in"
+            package_id = "OneInc.AmazingApi.Deployment"
+            properties = {
+                SelectionMode = "immediate"
+            }
+        }
+
+        packages "OneInc.AmazingApi.Deployment" {
+            acquisition_location = "Server"
+            feed = "octopus-server-built-in"
+            package_id = "OneInc.AmazingApi.Deployment"
+            properties = {
+                Extract = "True"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}

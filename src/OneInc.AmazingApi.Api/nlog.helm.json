@@ -1,0 +1,8 @@
+{
+  "NLog": {
+    "variables": {
+      "consoleLogMinLevel": "{{ .Values.nlog.variables.consoleLogMinLevel }}",
+      "releaseVersion": "{{ .Values.nlog.variables.releaseVersion  }}"
+    }
+  }
+}
